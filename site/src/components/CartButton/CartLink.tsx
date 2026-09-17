@@ -8,7 +8,7 @@ import styles from './index.module.css'
  * load the ecommerce client. Shop pages show the count in a floating pill.
  */
 export const CartLink: React.FC<{ className?: string }> = ({ className }) => (
-  <Link href="/cart" aria-label="Cart" className={`${styles.cartButton} ${className || ''}`}>
+  <Link prefetch={false} href="/cart" aria-label="Cart" className={`${styles.cartButton} ${className || ''}`}>
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path
         d="M6 6h15l-1.5 9h-12L6 6Zm0 0L5 3H2"

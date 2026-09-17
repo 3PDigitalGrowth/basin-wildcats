@@ -87,7 +87,7 @@ export async function Footer() {
                     if (!href) return null
                     return (
                       <li key={j}>
-                        <Link
+                        <Link prefetch={false}
                           href={href}
                           {...(item.link?.newTab ? { target: '_blank', rel: 'noopener' } : {})}
                         >

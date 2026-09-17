@@ -36,13 +36,13 @@ export const HeaderClient: React.FC<Props> = ({ data, settings }) => {
         <div className="announce" role="status">
           {announcement?.text}
           {announcement?.linkUrl && announcement?.linkLabel && (
-            <Link href={announcement.linkUrl}>{announcement.linkLabel}</Link>
+            <Link prefetch={false} href={announcement.linkUrl}>{announcement.linkLabel}</Link>
           )}
         </div>
       )}
       <div className={`top-card${showAnnounce ? ' has-announce' : ''}`}>
         <header className="site-header">
-          <Link className="brand" href="/" aria-label="Wildcats The Basin, home page">
+          <Link prefetch={false} className="brand" href="/" aria-label="Wildcats The Basin, home page">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo-96.png" alt="" width={46} height={46} />
             <span className="brand-name">
@@ -60,7 +60,7 @@ export const HeaderClient: React.FC<Props> = ({ data, settings }) => {
                   isActive(href) || children.some((c) => isActive(hrefFromLink(c.link)))
                 return (
                   <li key={i}>
-                    <Link
+                    <Link prefetch={false}
                       href={href || '#'}
                       className={active ? 'is-active' : undefined}
                       aria-haspopup={hasChildren ? 'true' : undefined}
@@ -81,7 +81,7 @@ export const HeaderClient: React.FC<Props> = ({ data, settings }) => {
                     {hasChildren && (
                       <div className="nav-drop">
                         {children.map((child, j) => (
-                          <Link key={j} href={hrefFromLink(child.link) || '#'}>
+                          <Link prefetch={false} key={j} href={hrefFromLink(child.link) || '#'}>
                             {child.link?.label}
                           </Link>
                         ))}
@@ -107,7 +107,7 @@ export const HeaderClient: React.FC<Props> = ({ data, settings }) => {
             </button>
 
             {ctaHref && (
-              <Link className="btn btn-red header-cta" href={ctaHref}>
+              <Link prefetch={false} className="btn btn-red header-cta" href={ctaHref}>
                 {cta?.label}
               </Link>
             )}
@@ -122,16 +122,16 @@ export const HeaderClient: React.FC<Props> = ({ data, settings }) => {
         >
           {navItems.map((item, i) => (
             <React.Fragment key={i}>
-              <Link href={hrefFromLink(item.link) || '#'}>{item.link?.label}</Link>
+              <Link prefetch={false} href={hrefFromLink(item.link) || '#'}>{item.link?.label}</Link>
               {(item.children || []).map((child, j) => (
-                <Link className="sub" key={j} href={hrefFromLink(child.link) || '#'}>
+                <Link prefetch={false} className="sub" key={j} href={hrefFromLink(child.link) || '#'}>
                   {child.link?.label}
                 </Link>
               ))}
             </React.Fragment>
           ))}
           {ctaHref && (
-            <Link className="btn btn-red" href={ctaHref}>
+            <Link prefetch={false} className="btn btn-red" href={ctaHref}>
               {cta?.label}
             </Link>
           )}
