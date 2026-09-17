@@ -303,8 +303,11 @@ transfer record: `docs/handover.md`. Developer notes: `site/README.md`.
 | Shop | Grey Hoodie, nine sizes, A$60, stock placeholders. Cart and checkout built. Stripe keys not yet set, so the pay step shows a holding notice |
 | Mascot | Three poses cut from the club's own Instagram graphics; used on the call-to-action strips and the 404 page. Source files still wanted |
 | Certificates | Out of scope, none existed. Documents library has a Certificates category ready |
-| Quality | Type check and lint clean. Lighthouse figures in the final report to Alex |
+| Quality | Type check and lint clean. Lighthouse on the live site, 18 Sep: desktop 98 performance, 100 accessibility, 100 best practices, 100 SEO. Mobile lab scores 71 to 87 by page (home lowest), with accessibility 98 to 100. Real Chrome under 4G throttling paints the homepage hero at about 2.6 seconds; the lab model books a longer render delay against the same image. Mobile lab score is the one open quality item |
 
 Not yet done, all needing something from outside the build: Stripe account and
 keys, Resend email key, Facebook page URL, domain decision, club-owned account
-transfers. Listed in section 8 and in `docs/handover.md`.
+transfers. Listed in section 8 and in `docs/handover.md`. One internal item:
+lift the mobile Lighthouse lab score past 90 (the remaining lever is the
+JavaScript that runs before the hero paints; the hero image itself already
+ships at 41KB and loads in the first round trips).
