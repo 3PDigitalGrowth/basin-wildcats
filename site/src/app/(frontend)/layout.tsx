@@ -30,6 +30,8 @@ const body = Barlow({
   weight: ['400', '500', '600'],
   variable: '--font-barlow',
   display: 'swap',
+  // Body text can swap in; the hero image should win the first round trips.
+  preload: false,
 })
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

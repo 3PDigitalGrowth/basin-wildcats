@@ -21,7 +21,7 @@ export const ClubHero: React.FC<Page['hero']> = async (props) => {
   const settings = (await getCachedGlobal('site-settings', 0)()) as SiteSetting
   const image = media && typeof media === 'object' ? (media as Media) : null
   const stats = showStats !== false ? settings?.stats || [] : []
-  const heroSizes = '(max-width: 1020px) 420px, 40vw'
+  const heroSizes = '(max-width: 1020px) 300px, 34vw'
   if (image?.url) {
     preload(image.url, { as: 'image', fetchPriority: 'high', imageSrcSet: srcSetFor(image), imageSizes: heroSizes })
   }

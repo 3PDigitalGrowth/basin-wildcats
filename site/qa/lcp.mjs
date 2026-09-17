@@ -1,0 +1,21 @@
+import { chromium } from '@playwright/test'
+const [url = 'https://basin-wildcats.vercel.app/', w = '390', css = ''] = process.argv.slice(2)
+const width = parseInt(w, 10)
+const browser = await chromium.launch({ channel: 'chrome', headless: true })
+const ctx = await browser.newContext({ viewport: { width, height: 844 }, deviceScaleFactor: 2, isMobile: width < 800 })
+const page = await ctx.newPage()
+const client = await ctx.newCDPSession(page)
+await client.send('Network.emulateNetworkConditions', { offline: false, latency: 150, downloadThroughput: 1.6 * 1024 * 1024 / 8, uploadThroughput: 750 * 1024 / 8 })
+await client.send('Emulation.setCPUThrottlingRate', { rate: 4 })
+await page.addInitScript(() => {
+  window.__lcp = []
+  new PerformanceObserver((l) => { for (const e of l.getEntries()) window.__lcp.push({ t: Math.round(e.startTime), render: Math.round(e.renderTime), load: Math.round(e.loadTime), size: e.size, el: e.element ? e.element.tagName + '.' + (e.element.className || '').toString().slice(0, 40) + ' ' + (e.element.currentSrc || e.element.textContent || '').toString().slice(-40) : '' }) }).observe({ type: 'largest-contentful-paint', buffered: true })
+  new PerformanceObserver((l) => { for (const e of l.getEntries()) window.__fcp = Math.round(e.startTime) }).observe({ type: 'paint', buffered: true })
+})
+if (css) await page.route('**/*', (route) => route.continue())
+await page.goto(url, { waitUntil: 'load' })
+if (css) await page.addStyleTag({ content: css })
+await page.waitForTimeout(6000)
+const r = await page.evaluate(() => ({ fcp: window.__fcp, lcp: window.__lcp, hydrated: !!document.querySelector('[data-count]') && document.querySelector('[data-count]').textContent }))
+console.log(JSON.stringify(r, null, 1))
+await browser.close()
