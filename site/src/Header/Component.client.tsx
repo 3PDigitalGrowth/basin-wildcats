@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 
 import type { Header as HeaderType, SiteSetting } from '@/payload-types'
 import { hrefFromLink } from '@/utilities/hrefFromLink'
-import { CartButton } from '@/components/CartButton'
+import { CartLink } from '@/components/CartButton/CartLink'
 
 type Props = {
   data: HeaderType
@@ -94,7 +94,7 @@ export const HeaderClient: React.FC<Props> = ({ data, settings }) => {
           </nav>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <CartButton />
+            <CartLink />
 
             <button
               className="nav-toggle"

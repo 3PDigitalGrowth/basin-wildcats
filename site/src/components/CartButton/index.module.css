@@ -38,3 +38,12 @@
   font-weight: 700;
   line-height: 1;
 }
+
+/* Floating cart count on shop pages (the header link carries no live count). */
+.cartPill {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 50;
+  box-shadow: 0 10px 30px rgba(15, 18, 16, 0.3);
+}
