@@ -34,6 +34,7 @@
   --green: #1e6f46;
   --green-deep: #175636;
   --green-light: #4caf7d;
+  --red-on-dark: #f0605c; /* 5.6:1 on ink for small text */
   --white: #ffffff;
   --grey: #6e6e66;
   --line: #e2dbc9;
@@ -41,7 +42,6 @@
   --cream-75: rgba(246, 242, 234, 0.75);
   --cream-60: rgba(246, 242, 234, 0.6);
 
-  --font-big-shoulders: 'Big Shoulders Display';
   --font-display: var(--font-big-shoulders), 'Arial Narrow', sans-serif;
   --font-body: var(--font-barlow), 'Helvetica Neue', sans-serif;
 
@@ -377,7 +377,7 @@ main {
 .brand-name span {
   display: block;
   font-size: 12px;
-  color: var(--red);
+  color: var(--red-on-dark);
   letter-spacing: 0.22em;
 }
 .nav-pill {
@@ -1015,7 +1015,7 @@ main {
   margin-bottom: 10px;
 }
 .season-card h3 span {
-  color: var(--red);
+  color: var(--red-on-dark);
 }
 .season-card:nth-child(2) h3 span {
   color: var(--green-light);
@@ -1365,13 +1365,13 @@ main {
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.3);
 }
-.footer-col h4 {
+.footer-col h2 {
   font-family: var(--font-display);
   font-weight: 800;
   font-size: 17px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--red);
+  color: var(--red-on-dark);
   margin-bottom: 16px;
 }
 .footer-col ul {

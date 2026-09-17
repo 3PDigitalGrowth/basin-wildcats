@@ -2,6 +2,7 @@ import React from 'react'
 
 import type { Media, StatementBlock as Props } from '@/payload-types'
 
+import { Img } from '@/components/Img'
 import RichText from '@/components/RichText'
 
 /** The about section: pill label, big condensed statement, two tilted photos. */
@@ -18,8 +19,7 @@ export const StatementBlock: React.FC<Props> = ({ tabLabel, statement, body, ima
           {hasImages && (
             <div className="about-img about-img-1 reveal">
               {left?.url && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={left.url} alt={left.alt || ''} loading="lazy" width={left.width || 600} height={left.height || 750} />
+                <Img media={left} sizes="(max-width: 1020px) 260px, 18vw" />
               )}
             </div>
           )}
@@ -35,8 +35,7 @@ export const StatementBlock: React.FC<Props> = ({ tabLabel, statement, body, ima
           {hasImages && (
             <div className="about-img about-img-2 reveal reveal-d1">
               {right?.url && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={right.url} alt={right.alt || ''} loading="lazy" width={right.width || 600} height={right.height || 750} />
+                <Img media={right} sizes="(max-width: 1020px) 260px, 18vw" />
               )}
             </div>
           )}

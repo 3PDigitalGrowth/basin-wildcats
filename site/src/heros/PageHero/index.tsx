@@ -3,6 +3,7 @@ import React from 'react'
 
 import type { Media, Page } from '@/payload-types'
 
+import { Img } from '@/components/Img'
 import RichText from '@/components/RichText'
 import { hrefFromLink } from '@/utilities/hrefFromLink'
 
@@ -60,14 +61,7 @@ export const PageHero: React.FC<Page['hero']> = (props) => {
           </div>
           {image?.url && (
             <figure className="page-hero-figure reveal reveal-d2">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={image.url}
-                alt={image.alt || ''}
-                width={image.width || 1200}
-                height={image.height || 900}
-                fetchPriority="high"
-              />
+              <Img media={image} sizes="(max-width: 1020px) 520px, 40vw" priority />
             </figure>
           )}
         </div>

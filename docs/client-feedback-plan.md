@@ -284,3 +284,27 @@ section needs a reference; the homepage direction is already locked.
 - Invent fees, dates, records or milestones.
 - Email the client, or Bron, before the site is ready to show.
 - Leave any account without 3P collaborator access after transfer.
+
+## 10. Build status, 18 Sep 2026
+
+Built and deployed in one pass on 18 Sep 2026. Live at
+https://basin-wildcats.vercel.app with the admin at /admin. Ownership and
+transfer record: `docs/handover.md`. Developer notes: `site/README.md`.
+
+| Area | State |
+|------|-------|
+| Admin (WordPress feel) | Pages with 20 block types, News, Media, Documents, Sponsors, Navigation, Footer, Site settings, Users with admin, editor and customer roles, live preview, drafts, scheduled publishing |
+| Homepage | Ported block for block from the approved concept; committee can edit every word and photo |
+| Content migrated | 14 pages, 9 news posts, 62 documents (15 marked superseded), 19 club photos, 144 redirects covering every old /wordpress address |
+| Landing pages written | Our Club, Join (with enquiry form), Mini Cats, Volunteers, Members, Team Managers and Coaches hub, Gallery, Social, Sponsors, Contact, Club papers, Game venues |
+| Forms | New player enquiry, Contact us, Uniform number request, Volunteer. Notifications go to the old site's club addresses once an email key is set |
+| Instagram | 12 latest posts synced, refreshed every six hours, images copied to Blob |
+| Facebook | Page Plugin block ready; needs the page URL in Site settings |
+| Shop | Grey Hoodie, nine sizes, A$60, stock placeholders. Cart and checkout built. Stripe keys not yet set, so the pay step shows a holding notice |
+| Mascot | Three poses cut from the club's own Instagram graphics; used on the call-to-action strips and the 404 page. Source files still wanted |
+| Certificates | Out of scope, none existed. Documents library has a Certificates category ready |
+| Quality | Type check and lint clean. Lighthouse figures in the final report to Alex |
+
+Not yet done, all needing something from outside the build: Stripe account and
+keys, Resend email key, Facebook page URL, domain decision, club-owned account
+transfers. Listed in section 8 and in `docs/handover.md`.

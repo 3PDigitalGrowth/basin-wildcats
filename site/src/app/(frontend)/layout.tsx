@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 
 import { cn } from '@/utilities/ui'
 import { Barlow } from 'next/font/google'
+import localFont from 'next/font/local'
 import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
@@ -15,6 +16,15 @@ import { draftMode } from 'next/headers'
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
 
+// Self-hosted variable font (latin subset from Google Fonts, weights 600 to 900).
+const display = localFont({
+  src: '../../fonts/big-shoulders-display-latin.woff2',
+  weight: '600 900',
+  variable: '--font-big-shoulders',
+  display: 'swap',
+  preload: true,
+})
+
 const body = Barlow({
   subsets: ['latin'],
   weight: ['400', '500', '600'],
@@ -26,17 +36,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const { isEnabled } = await draftMode()
 
   return (
-    <html className={cn(body.variable)} lang="en-AU" suppressHydrationWarning>
+    <html className={cn(display.variable, body.variable)} lang="en-AU" suppressHydrationWarning>
       <head>
         <link href="/logo.png" rel="icon" type="image/png" />
         <link href="/logo.png" rel="apple-touch-icon" />
-        {/* Big Shoulders Display is not in next/font's catalogue under this name; load it directly. */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&display=swap"
-          rel="stylesheet"
-        />
       </head>
       <body>
         <Providers>

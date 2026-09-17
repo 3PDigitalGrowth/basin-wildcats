@@ -42,7 +42,7 @@ export const HeaderClient: React.FC<Props> = ({ data, settings }) => {
       )}
       <div className={`top-card${showAnnounce ? ' has-announce' : ''}`}>
         <header className="site-header">
-          <Link className="brand" href="/" aria-label="The Basin Wildcats home">
+          <Link className="brand" href="/" aria-label="Wildcats The Basin, home page">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo.png" alt="" width={46} height={46} />
             <span className="brand-name">

@@ -3,6 +3,9 @@ import React from 'react'
 
 import type { Media, Page, SiteSetting } from '@/payload-types'
 
+import { preload } from 'react-dom'
+
+import { Img, srcSetFor } from '@/components/Img'
 import RichText from '@/components/RichText'
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import { hrefFromLink } from '@/utilities/hrefFromLink'
@@ -18,6 +21,10 @@ export const ClubHero: React.FC<Page['hero']> = async (props) => {
   const settings = (await getCachedGlobal('site-settings', 0)()) as SiteSetting
   const image = media && typeof media === 'object' ? (media as Media) : null
   const stats = showStats !== false ? settings?.stats || [] : []
+  const heroSizes = '(max-width: 1020px) 420px, 40vw'
+  if (image?.url) {
+    preload(image.url, { as: 'image', fetchPriority: 'high', imageSrcSet: srcSetFor(image), imageSizes: heroSizes })
+  }
 
   return (
     <div className="hero-shell">
@@ -77,14 +84,7 @@ export const ClubHero: React.FC<Page['hero']> = async (props) => {
 
           {image?.url && (
             <figure className="hero-figure reveal reveal-d2">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={image.url}
-                alt={image.alt || ''}
-                width={image.width || 800}
-                height={image.height || 1000}
-                fetchPriority="high"
-              />
+              <Img media={image} sizes={heroSizes} priority fallbackWidth={800} fallbackHeight={1000} />
             </figure>
           )}
         </div>

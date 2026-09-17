@@ -94,7 +94,7 @@ export default async function ShopPage() {
                         <img
                           src={img.url}
                           alt={img.alt || product.title}
-                          loading="lazy"
+                          loading="eager"
                           width={img.width || 800}
                           height={img.height || 800}
                           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
@@ -128,7 +128,7 @@ export default async function ShopPage() {
                         gap: 10,
                       }}
                     >
-                      <h3 style={{ fontSize: 24 }}>{product.title}</h3>
+                      <h2 style={{ fontSize: 24 }}>{product.title}</h2>
                       <div
                         style={{
                           display: 'flex',

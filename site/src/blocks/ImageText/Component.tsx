@@ -3,6 +3,7 @@ import React from 'react'
 
 import type { ImageTextBlock as Props, Media } from '@/payload-types'
 
+import { Img } from '@/components/Img'
 import RichText from '@/components/RichText'
 import { hrefFromLink } from '@/utilities/hrefFromLink'
 
@@ -32,15 +33,7 @@ export const ImageTextBlock: React.FC<Props> = ({ image, imagePosition, tilt, ri
                 transform: tilt === false ? undefined : `rotate(${right ? 2 : -2}deg)`,
               }}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={img.url}
-                alt={img.alt || ''}
-                loading="lazy"
-                width={img.width || 900}
-                height={img.height || 700}
-                style={{ width: '100%', height: 'auto' }}
-              />
+              <Img media={img} sizes="(max-width: 820px) 100vw, 50vw" style={{ width: '100%', height: 'auto' }} />
             </figure>
           )}
         </div>

@@ -5,6 +5,7 @@ import React from 'react'
 
 import type { Media, ProductGridBlock as Props } from '@/payload-types'
 
+import { Img } from '@/components/Img'
 import { formatAUD } from '@/utilities/formatAUD'
 
 export const ProductGridBlock: React.FC<Props> = async ({ title, kicker, limit }) => {
@@ -47,15 +48,7 @@ export const ProductGridBlock: React.FC<Props> = async ({ title, kicker, limit }
               >
                 <div style={{ aspectRatio: '1 / 1', background: 'var(--cream-2)' }}>
                   {img?.url && (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={img.url}
-                      alt={img.alt || p.title}
-                      loading="lazy"
-                      width={img.width || 800}
-                      height={img.height || 800}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    />
+                    <Img media={img} alt={img.alt || p.title} sizes="(max-width: 820px) 100vw, 25vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   )}
                 </div>
                 <div style={{ padding: '18px 20px 22px', display: 'flex', flexDirection: 'column', gap: 6 }}>

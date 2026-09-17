@@ -80,7 +80,7 @@ export async function Footer() {
             </div>
             {columns.map((col, i) => (
               <div className="footer-col" key={i}>
-                <h4>{col.heading}</h4>
+                <h2>{col.heading}</h2>
                 <ul>
                   {(col.navItems || []).map((item, j) => {
                     const href = hrefFromLink(item.link)

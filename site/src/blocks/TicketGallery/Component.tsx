@@ -1,6 +1,7 @@
 import React from 'react'
 
 import type { Media, TicketGalleryBlock as Props } from '@/payload-types'
+import { Img } from '@/components/Img'
 
 export const TicketGalleryBlock: React.FC<Props> = ({ title, titleHollow, kicker, cards }) => {
   const list = cards || []
@@ -22,14 +23,7 @@ export const TicketGalleryBlock: React.FC<Props> = ({ title, titleHollow, kicker
             if (!image?.url) return null
             return (
               <article className={`ticket reveal${i % 3 ? ` reveal-d${i % 3}` : ''}`} key={i}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={image.url}
-                  alt={image.alt || card.caption}
-                  loading="lazy"
-                  width={image.width || 800}
-                  height={image.height || 920}
-                />
+                <Img media={image} alt={image.alt || card.caption} sizes="(max-width: 820px) 100vw, 33vw" fallbackWidth={800} fallbackHeight={920} />
                 {card.tag && <span className="ticket-tag">{card.tag}</span>}
                 <div className="ticket-cap">
                   {card.caption}

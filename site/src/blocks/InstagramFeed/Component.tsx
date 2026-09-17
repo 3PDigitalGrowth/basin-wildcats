@@ -4,6 +4,7 @@ import React from 'react'
 
 import type { InstagramFeedBlock as Props, Media, SiteSetting } from '@/payload-types'
 
+import { Img } from '@/components/Img'
 import { getCachedGlobal } from '@/utilities/getGlobals'
 
 /**
@@ -76,15 +77,7 @@ export const InstagramFeedBlock: React.FC<Props> = async ({ title, kicker, count
                   background: 'var(--ink)',
                 }}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={img.url || ''}
-                  alt={img.alt || ''}
-                  loading="lazy"
-                  width={img.width || 1080}
-                  height={img.height || 1080}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                />
+                <Img media={img} sizes="(max-width: 820px) 50vw, 25vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 {p.mediaType === 'video' && (
                   <span
                     className="ticket-tag"
