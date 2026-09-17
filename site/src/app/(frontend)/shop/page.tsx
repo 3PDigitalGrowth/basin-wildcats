@@ -11,7 +11,8 @@ import type { Media as MediaType } from '@/payload-types'
 import { formatAUD } from '@/utilities/formatAUD'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 
-export const dynamic = 'force-dynamic'
+// Listing is cached and refreshed every ten minutes; product edits show within that window.
+export const revalidate = 600
 
 export default async function ShopPage() {
   const payload = await getPayload({ config: configPromise })
