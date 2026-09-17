@@ -52,6 +52,9 @@
   --wrap: 1200px;
   --pad: clamp(20px, 4vw, 48px);
   --shell: 14px;
+  /* Inside the full-width dark cards (header, hero, stat bar): pad so content sits on the same
+     1200px column as .wrap below. Card is inset --shell each side, so the maths mirrors .wrap. */
+  --card-pad: max(var(--pad), calc((100% - var(--wrap)) / 2 + var(--pad)));
 
   /* shadcn-style aliases so the template's UI primitives inherit the palette */
   --background: var(--cream);
@@ -382,7 +385,7 @@ main {
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  padding: 22px clamp(20px, 3.5vw, 44px);
+  padding: 22px var(--card-pad);
   position: relative;
   z-index: 5;
 }
@@ -459,30 +462,172 @@ main {
   background: var(--cream);
   color: var(--ink);
 }
-.nav-drop {
+/* ---------- mega menu ---------- */
+.nav-main {
+  position: static;
+}
+.nav-pill > li {
+  position: static;
+}
+.mega {
   position: absolute;
-  top: calc(100% + 10px);
-  left: 0;
-  min-width: 230px;
+  left: var(--shell);
+  right: var(--shell);
+  top: calc(100% - 8px);
+  z-index: 60;
+  display: none;
   background: var(--ink-2);
   border: 1px solid var(--line-dark);
-  border-radius: var(--radius-md);
-  padding: 8px;
-  display: none;
-  flex-direction: column;
-  gap: 2px;
-  box-shadow: 0 24px 50px rgba(15, 18, 16, 0.4);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 30px 70px rgba(15, 18, 16, 0.5);
+  padding: clamp(18px, 2vw, 28px);
 }
-.nav-pill li:hover > .nav-drop,
-.nav-pill li:focus-within > .nav-drop {
-  display: flex;
+.top-card {
+  position: relative;
 }
-.nav-drop a {
+.mega.is-open,
+.nav-pill li:focus-within > .mega {
   display: block;
-  border-radius: var(--radius-sm);
-  padding: 10px 14px;
-  font-size: 14.5px;
 }
+.mega-inner {
+  display: grid;
+  grid-template-columns: minmax(220px, 300px) 1fr;
+  gap: clamp(20px, 3vw, 40px);
+  max-width: calc(var(--wrap) - 2 * var(--pad));
+  margin: 0 auto;
+}
+.mega-intro {
+  border-right: 1px solid var(--line-dark);
+  padding-right: clamp(18px, 2vw, 32px);
+}
+.mega-intro-img {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  margin-bottom: 16px;
+}
+.mega-intro-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.mega-intro-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 26px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.mega-intro-blurb {
+  font-size: 14.5px;
+  color: rgba(246, 242, 234, 0.7);
+  margin-bottom: 14px;
+}
+.mega-intro-link {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--red-on-dark);
+  text-decoration: none;
+}
+.mega-intro-link:hover {
+  text-decoration: underline;
+}
+.mega-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 6px 10px;
+  align-content: start;
+}
+.mega-card {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 14px;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: var(--cream);
+  transition: background 0.2s ease;
+}
+.mega-card:hover,
+.mega-card:focus-visible,
+.mega-card.is-active {
+  background: rgba(255, 255, 255, 0.08);
+}
+.mega-card-img {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
+  display: block;
+}
+.mega-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.mega-card-dot {
+  display: block;
+  width: 14px;
+  height: 14px;
+  margin: 21px;
+  border-radius: 999px;
+  background: var(--red);
+}
+.mega-card-text {
+  display: block;
+  min-width: 0;
+}
+.mega-card-label {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.05;
+}
+.mega-card-desc {
+  display: block;
+  font-size: 13.5px;
+  color: rgba(246, 242, 234, 0.65);
+  margin-top: 3px;
+}
+/* mobile accordion groups */
+.mobile-group-btn {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  border: 0;
+  color: var(--cream);
+  font: 500 16px var(--font-body);
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  text-align: left;
+}
+.mobile-group-btn[aria-expanded='true'] {
+  background: rgba(255, 255, 255, 0.08);
+}
+.mobile-group-list {
+  padding: 4px 0 8px;
+}
+.mobile-nav a.sub small {
+  display: block;
+  font-size: 12.5px;
+  color: rgba(246, 242, 234, 0.55);
+  margin-top: 2px;
+}
+
 .nav-toggle {
   display: none;
 }
@@ -546,7 +691,7 @@ main {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
   align-items: end;
-  padding: clamp(10px, 2vw, 30px) clamp(20px, 3.5vw, 44px) 0;
+  padding: clamp(10px, 2vw, 30px) var(--card-pad) 0;
   z-index: 2;
 }
 .hero-copy {
@@ -634,7 +779,7 @@ main {
   align-items: center;
   gap: clamp(18px, 3vw, 44px);
   border-top: 1px solid var(--line-dark);
-  padding: 24px clamp(20px, 3.5vw, 44px) 30px;
+  padding: 24px var(--card-pad) 30px;
   background: rgba(15, 18, 16, 0.55);
   backdrop-filter: blur(6px);
 }
@@ -678,7 +823,7 @@ main {
   grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
   gap: clamp(24px, 4vw, 60px);
   align-items: center;
-  padding: clamp(28px, 4vw, 56px) clamp(20px, 3.5vw, 44px) clamp(40px, 5vw, 70px);
+  padding: clamp(28px, 4vw, 56px) var(--card-pad) clamp(40px, 5vw, 70px);
 }
 .page-hero.no-media {
   grid-template-columns: 1fr;

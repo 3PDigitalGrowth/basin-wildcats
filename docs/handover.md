@@ -52,8 +52,12 @@ first admin is created from Users, then that person invites the rest.
 - Documents is the file library. Upload a policy or resource once; it appears
   wherever a Document list block includes its category. Tick "superseded" to
   retire an old version without deleting it.
-- Sponsors, Navigation, Footer and Site settings cover everything that is not
-  a page (contacts, social links, announcement bar, homepage stat chips).
+- Navigation is the mega menu. Each top-level item has an intro (a photo and
+  one or two sentences) and dropdown items, each with a small graphic and one
+  line of helper text. Change the words or swap a photo there and the menu
+  updates across the site.
+- Sponsors, Footer and Site settings cover everything else that is not a page
+  (contacts, social links, announcement bar, homepage stat chips).
 - Shop: Products carry sizes, price and stock. Orders show who paid and what to
   hand them at training, with a collection status and notes.
 

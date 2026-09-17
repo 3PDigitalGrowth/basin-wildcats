@@ -3084,6 +3084,16 @@ export interface Header {
           url?: string | null;
           label: string;
         };
+        /**
+         * Shown in the left column when this item has dropdown items.
+         */
+        panel?: {
+          /**
+           * One or two sentences.
+           */
+          blurb?: string | null;
+          image?: (number | null) | Media;
+        };
         children?:
           | {
               link: {
@@ -3101,6 +3111,11 @@ export interface Header {
                 url?: string | null;
                 label: string;
               };
+              /**
+               * One short line under the link, for example "Season fees, family discounts, how to pay."
+               */
+              description?: string | null;
+              image?: (number | null) | Media;
               id?: string | null;
             }[]
           | null;
@@ -3244,6 +3259,12 @@ export interface HeaderSelect<T extends boolean = true> {
               url?: T;
               label?: T;
             };
+        panel?:
+          | T
+          | {
+              blurb?: T;
+              image?: T;
+            };
         children?:
           | T
           | {
@@ -3256,6 +3277,8 @@ export interface HeaderSelect<T extends boolean = true> {
                     url?: T;
                     label?: T;
                   };
+              description?: T;
+              image?: T;
               id?: T;
             };
         id?: T;
