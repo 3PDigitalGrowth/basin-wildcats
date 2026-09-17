@@ -40,7 +40,7 @@ export async function Footer() {
           <div className={`footer-grid ${cols}`}>
             <div className="footer-brand">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo.png" alt="The Basin Wildcats logo" width={74} height={74} />
+              <img src="/logo-160.png" alt="The Basin Wildcats logo" width={74} height={74} loading="lazy" />
               <p>
                 {footerData?.blurb ||
                   'The Basin Wildcats Basketball Club. A family club in the Knox competition since 1975, playing winter and summer from our home base at The Basin Primary School.'}

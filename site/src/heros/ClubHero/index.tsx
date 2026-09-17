@@ -44,8 +44,8 @@ export const ClubHero: React.FC<Page['hero']> = async (props) => {
 
         <div className="hero-grid">
           <div className="hero-copy">
-            {eyebrow && <p className="hero-eyebrow reveal">{eyebrow}</p>}
-            <h1 className="hero-title reveal reveal-d1">
+            {eyebrow && <p className="hero-eyebrow rise">{eyebrow}</p>}
+            <h1 className="hero-title">
               {title}
               {(titleKnock || titleAccent) && (
                 <span className="line-2">
@@ -56,14 +56,14 @@ export const ClubHero: React.FC<Page['hero']> = async (props) => {
             </h1>
             {richText && (
               <RichText
-                className="hero-sub reveal reveal-d2"
+                className="hero-sub rise rise-d2"
                 data={richText}
                 enableGutter={false}
                 enableProse={false}
               />
             )}
             {links && links.length > 0 && (
-              <div className="hero-ctas reveal reveal-d3">
+              <div className="hero-ctas rise rise-d3">
                 {links.map(({ link }, i) => {
                   const href = hrefFromLink(link)
                   if (!href) return null
@@ -83,7 +83,7 @@ export const ClubHero: React.FC<Page['hero']> = async (props) => {
           </div>
 
           {image?.url && (
-            <figure className="hero-figure reveal reveal-d2">
+            <figure className="hero-figure">
               <Img media={image} sizes={heroSizes} priority fallbackWidth={800} fallbackHeight={1000} />
             </figure>
           )}
@@ -94,7 +94,7 @@ export const ClubHero: React.FC<Page['hero']> = async (props) => {
             {stats.map((s, i) => (
               <div className="stat" key={i}>
                 <div className="stat-num">
-                  <span data-count={s.value}>0</span>
+                  <span data-count={s.value}>{s.value}</span>
                   {s.suffix}
                 </div>
                 <div className="stat-label">{s.label}</div>

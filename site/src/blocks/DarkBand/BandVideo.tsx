@@ -1,25 +1,28 @@
 'use client'
 
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 /**
- * Background video loop for the dark band. Pauses off screen and never
- * autoplays under prefers-reduced-motion. Hidden under 768px by CSS, where the
- * still image takes over (house rule).
+ * Background video loop for the dark band. Rendered only on screens 768px and
+ * wider (house rule: phones get the still image and never download the clip),
+ * pauses off screen, and never autoplays under prefers-reduced-motion.
  */
 export const BandVideo: React.FC<{ src: string; poster?: string }> = ({ src, poster }) => {
   const ref = useRef<HTMLVideoElement>(null)
+  const [enabled, setEnabled] = useState(false)
+
+  useEffect(() => {
+    const wide = window.matchMedia('(min-width: 768px)')
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const update = () => setEnabled(wide.matches && !reduceMotion)
+    update()
+    wide.addEventListener('change', update)
+    return () => wide.removeEventListener('change', update)
+  }, [])
 
   useEffect(() => {
     const video = ref.current
-    if (!video) return
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduceMotion) {
-      video.removeAttribute('autoplay')
-      video.pause()
-      return
-    }
-    if (!('IntersectionObserver' in window)) return
+    if (!video || !enabled || !('IntersectionObserver' in window)) return
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -31,7 +34,9 @@ export const BandVideo: React.FC<{ src: string; poster?: string }> = ({ src, pos
     )
     io.observe(video)
     return () => io.disconnect()
-  }, [])
+  }, [enabled])
+
+  if (!enabled) return null
 
   return (
     <video

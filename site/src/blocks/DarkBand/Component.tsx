@@ -1,6 +1,7 @@
 import React from 'react'
 
 import type { DarkBandBlock as Props, Media } from '@/payload-types'
+import { Img } from '@/components/Img'
 
 import { BandVideo } from './BandVideo'
 
@@ -21,8 +22,10 @@ export const DarkBandBlock: React.FC<Props> = ({
   background,
   showEyes,
 }) => {
-  const video = background?.video && typeof background.video === 'object' ? (background.video as Media) : null
-  const image = background?.image && typeof background.image === 'object' ? (background.image as Media) : null
+  const video =
+    background?.video && typeof background.video === 'object' ? (background.video as Media) : null
+  const image =
+    background?.image && typeof background.image === 'object' ? (background.image as Media) : null
   const list = cards || []
   const cols = list.length === 2 ? 'cols-2' : list.length === 4 ? 'cols-4' : ''
 
@@ -31,13 +34,12 @@ export const DarkBandBlock: React.FC<Props> = ({
       <section className="seasons" id="seasons">
         {video?.url && <BandVideo src={video.url} poster={image?.url || undefined} />}
         {image?.url && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            className={video?.url ? 'seasons-fallback' : 'seasons-fallback always'}
-            src={image.url}
+          // Still image: the only background under 768px, the poster behind the video above it.
+          <Img
+            media={image}
             alt=""
-            aria-hidden="true"
-            loading="lazy"
+            sizes="100vw"
+            className="seasons-fallback"
             style={video?.url ? undefined : { display: 'block' }}
           />
         )}
@@ -50,7 +52,10 @@ export const DarkBandBlock: React.FC<Props> = ({
           {list.length > 0 && (
             <div className={`season-cards ${cols}`}>
               {list.map((card, i) => (
-                <div className={`season-card reveal${i ? ` reveal-d${Math.min(i, 3)}` : ''}`} key={i}>
+                <div
+                  className={`season-card reveal${i ? ` reveal-d${Math.min(i, 3)}` : ''}`}
+                  key={i}
+                >
                   <h3>
                     {card.title} {card.accent && <span>{card.accent}</span>}
                   </h3>

@@ -28,20 +28,20 @@ export const PageHero: React.FC<Page['hero']> = (props) => {
         </svg>
         <div className={`page-hero${image?.url ? '' : ' no-media'}`}>
           <div>
-            {eyebrow && <p className="hero-eyebrow reveal">{eyebrow}</p>}
-            <h1 className="page-hero-title reveal reveal-d1">
+            {eyebrow && <p className="hero-eyebrow rise">{eyebrow}</p>}
+            <h1 className="page-hero-title">
               {title} {titleAccent && <span className="accent">{titleAccent}</span>}
             </h1>
             {richText && (
               <RichText
-                className="page-hero-sub reveal reveal-d2"
+                className="page-hero-sub rise rise-d2"
                 data={richText}
                 enableGutter={false}
                 enableProse={false}
               />
             )}
             {links && links.length > 0 && (
-              <div className="page-hero-ctas reveal reveal-d3">
+              <div className="page-hero-ctas rise rise-d3">
                 {links.map(({ link }, i) => {
                   const href = hrefFromLink(link)
                   if (!href) return null
@@ -60,7 +60,7 @@ export const PageHero: React.FC<Page['hero']> = (props) => {
             )}
           </div>
           {image?.url && (
-            <figure className="page-hero-figure reveal reveal-d2">
+            <figure className="page-hero-figure">
               <Img media={image} sizes="(max-width: 1020px) 520px, 40vw" priority />
             </figure>
           )}

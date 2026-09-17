@@ -44,7 +44,7 @@ export const HeaderClient: React.FC<Props> = ({ data, settings }) => {
         <header className="site-header">
           <Link className="brand" href="/" aria-label="Wildcats The Basin, home page">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.png" alt="" width={46} height={46} />
+            <img src="/logo-96.png" alt="" width={46} height={46} />
             <span className="brand-name">
               Wildcats<span>The Basin</span>
             </span>

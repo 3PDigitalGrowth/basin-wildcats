@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import configPromise from '@payload-config'
 import Link from 'next/link'
 import { getPayload } from 'payload'
+import { Img } from '@/components/Img'
 import React from 'react'
 
 import type { Media as MediaType } from '@/payload-types'
@@ -90,15 +91,7 @@ export default async function ShopPage() {
                       }}
                     >
                       {img?.url && (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={img.url}
-                          alt={img.alt || product.title}
-                          loading="eager"
-                          width={img.width || 800}
-                          height={img.height || 800}
-                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                        />
+                        <Img media={img} alt={img.alt || product.title} sizes="(max-width: 820px) 100vw, 25vw" priority={i === 0} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                       )}
                       {outOfStock && (
                         <span
