@@ -1,0 +1,27 @@
+/* Mascot beside the 404 copy: stacks above the copy on mobile, sits in a
+   right-hand column on desktop. Breakpoint matches the 820px nav breakpoint
+   used across globals.css. */
+.wrap {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: clamp(20px, 4vw, 48px);
+}
+
+.copy {
+  flex: 1 1 auto;
+}
+
+.mascotCol {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 821px) {
+  .wrap {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

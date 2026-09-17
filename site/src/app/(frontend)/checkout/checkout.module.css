@@ -1,0 +1,145 @@
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: clamp(30px, 5vw, 56px);
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.legend {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 480px) {
+  .row2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.pickupNote {
+  font-size: 14.5px;
+  color: var(--grey);
+  background: var(--cream-2);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+}
+
+.paymentBox {
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 22px;
+}
+
+.noStripeNotice {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  border-radius: var(--radius-md);
+  background: var(--cream-2);
+  border: 1.5px dashed var(--line);
+}
+
+.noStripeNotice strong {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-size: 15px;
+}
+
+.noStripeNotice a {
+  color: var(--red-dark);
+  font-weight: 600;
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  border-radius: var(--radius-md);
+  background: var(--white);
+  border: 1.5px solid var(--line);
+  position: sticky;
+  top: 24px;
+}
+
+.summaryTitle {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.summaryItem {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14.5px;
+}
+
+.summaryItem span:first-child {
+  color: var(--grey);
+}
+
+.summaryTotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-top: 1.5px solid var(--line);
+  padding-top: 14px;
+  font-weight: 700;
+}
+
+.summaryTotal span:last-child {
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: var(--red-dark);
+}
+
+.error {
+  color: var(--red-dark);
+  font-size: 14px;
+  font-weight: 600;
+}

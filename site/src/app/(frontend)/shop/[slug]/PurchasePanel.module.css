@@ -1,0 +1,141 @@
+/* Product purchase panel: variant pills, quantity stepper, stock line.
+   Layout only. Colour and type come from the existing brand tokens in
+   globals.css so this stays inside the club's design system. */
+
+.priceRow {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-top: 4px;
+}
+
+.price {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 34px;
+  color: var(--red-dark);
+}
+
+.stock {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--grey);
+}
+
+.stock.low {
+  color: var(--red-dark);
+}
+
+.stock.out {
+  color: var(--grey);
+}
+
+.variantBlock {
+  margin-top: 26px;
+}
+
+.variantLabel {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1.5px solid var(--line);
+  background: var(--white);
+  color: var(--ink);
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.pill:hover:not(:disabled) {
+  border-color: var(--ink);
+}
+
+.pillActive {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--cream);
+}
+
+.pill:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+.purchaseRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.stepperBtn {
+  width: 40px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  border: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.stepperBtn:hover:not(:disabled) {
+  background: var(--cream-2);
+}
+
+.stepperBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.stepperValue {
+  width: 40px;
+  text-align: center;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.note {
+  margin-top: 18px;
+  font-size: 14.5px;
+  color: var(--grey);
+}
+
+.added {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--green);
+}

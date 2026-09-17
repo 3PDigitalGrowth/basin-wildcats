@@ -1,0 +1,11 @@
+# Render and scratch output
+_render_*/
+*.log
+
+# Site secrets (site/.gitignore also covers these)
+site/.env
+site/.env*.local
+site/.vercel/
+
+# template leftovers not used on Vercel
+site/test.env

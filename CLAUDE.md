@@ -29,13 +29,22 @@ No execution work starts until these are defined.
   white. Red is the action colour, green is the support colour.
 - **Fonts:** Big Shoulders Display (condensed athletic display, 700-900) +
   Barlow (body). Google Fonts.
-- **Client-specific locked pattern (if any):** None yet; this build sets it.
+- **Client-specific locked pattern (if any):** Homepage direction approved by the
+  club committee 2 Sep 2026 (dark hero, cream body, red/green, Big Shoulders +
+  Barlow). No restyle. Feedback plan: `docs/client-feedback-plan.md`.
   Style reference: Sudbury Five-style dark hero with cream body, adapted to
   club red/green. Real stats only on stat chips (50 years, 70+ teams, 400+
   members): never invented records, fees, or countdowns.
 - **Hosting note:** Homepage demo ships as a static site on GitHub Pages for
   client review (relative ./ asset paths required). Production build moves to
   Next.js/Vercel when signed off.
+- **Production stack (ruled 18 Sep 2026):** Next.js on Vercel with the admin
+  inside the site at /admin (Payload framework, Neon Postgres, Vercel Blob),
+  built to feel like WordPress: Pages, Posts, Media, Documents, Users. No
+  hosted headless CMS. Shop on Stripe Checkout. Instagram feed via a
+  scheduled ScrapeCreators pull, never the Meta Graph API. Facebook via the
+  official Page Plugin. WordPress content export in `content/wp-export/`.
+  No client contact until the site is ready to show.
 - **Target build level:** Level 5 (component + asset designer) with Level 6 polish
   on hero and key conversion moments.
 
