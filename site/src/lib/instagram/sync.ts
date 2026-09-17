@@ -128,17 +128,20 @@ export async function syncInstagram({
         collection: 'instagram-posts',
         where: { shortcode: { equals: shortcode } },
         limit: 1,
-        depth: 0,
+        depth: 1,
       })
       const existingDoc = existing.docs[0]
+      const existingImage =
+        existingDoc?.image && typeof existingDoc.image === 'object' ? existingDoc.image : null
 
-      // Skip if we already have this post cached with its image. Otherwise
-      // (new post, or a doc that failed its image download last time) fall
-      // through and (re)fetch it.
-      if (existingDoc && existingDoc.image) {
+      // Skip if we already have this post cached with its image under the
+      // current naming. Files saved under the old "ig-" prefix are replaced:
+      // that prefix trips some ad blockers, so the tiles rendered as blanks.
+      if (existingDoc && existingImage && !existingImage.filename?.startsWith('ig-')) {
         result.skipped += 1
         continue
       }
+      const staleMediaId = existingImage?.id
 
       const imageSourceUrl = node.display_url || node.thumbnail_src
       if (!imageSourceUrl) {
@@ -166,7 +169,7 @@ export async function syncInstagram({
         data: { alt },
         file: {
           data: buffer,
-          name: `ig-${shortcode}.jpg`,
+          name: `wildcats-social-${shortcode}.jpg`,
           mimetype,
           size: buffer.byteLength,
         },
@@ -200,6 +203,13 @@ export async function syncInstagram({
           data: postData,
         })
         result.updated += 1
+        if (staleMediaId) {
+          try {
+            await payload.delete({ collection: 'media', id: staleMediaId })
+          } catch {
+            // The old file is orphaned but harmless; the post already points at the new one.
+          }
+        }
       } else {
         await payload.create({
           collection: 'instagram-posts',

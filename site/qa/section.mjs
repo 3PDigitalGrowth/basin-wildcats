@@ -1,0 +1,17 @@
+import { chromium } from '@playwright/test'
+const [url, selector, out, w = '1280'] = process.argv.slice(2)
+const browser = await chromium.launch({ channel: 'chrome', headless: true })
+const page = await browser.newPage({ viewport: { width: parseInt(w, 10), height: 900 } })
+await page.goto(url, { waitUntil: 'networkidle' })
+const el = page.locator(selector).first()
+await el.scrollIntoViewIfNeeded()
+await page.waitForTimeout(2500)
+const info = await page.evaluate((sel) => {
+  const root = document.querySelector(sel)
+  const imgs = Array.from(root.querySelectorAll('img'))
+  return imgs.slice(0, 8).map((i) => ({ complete: i.complete, natural: i.naturalWidth, cur: (i.currentSrc || '').slice(-40), display: getComputedStyle(i).display, opacity: getComputedStyle(i).opacity, w: i.getBoundingClientRect().width }))
+}, selector)
+console.log(JSON.stringify(info))
+await el.screenshot({ path: out })
+console.log('saved', out)
+await browser.close()

@@ -32,7 +32,7 @@ const sections: Section[] = [
       { label: 'Season information', description: 'Winter and summer seasons, grading rounds, game days.', image: 'court-wide.jpg' },
       { label: 'Training', description: 'Training nights and the child supervision policy.', image: 'bwch01.jpg' },
       { label: 'Game venues', description: 'Where Knox games are played, and stadium entry.', image: 'wilcats-picture-4.jpg' },
-      { label: 'Mini Cats', description: 'Under 8 skills sessions for kids starting out.', image: 'ig-DdGrxWYipaq.jpg' },
+      { label: 'Mini Cats', description: 'Under 8 skills sessions for kids starting out.', image: 'wildcats-social-DdGrxWYipaq.jpg' },
     ],
   },
   {
@@ -43,7 +43,7 @@ const sections: Section[] = [
       { label: 'Policies', description: 'Codes of conduct and club policies, all on one page.', image: 'net.jpg' },
       { label: 'Uniform and merchandise', description: 'Request a number, order a singlet, grab a hoodie.', image: 'grey-hoodie.jpg' },
       { label: 'Member information', description: 'Communication, fixtures, injuries and the finer details.', image: 'wilcats-picture-3.jpg' },
-      { label: 'Social', description: 'Instagram, Facebook and the members group.', image: 'ig-DdP_gsiI51r.jpg' },
+      { label: 'Social', description: 'Instagram, Facebook and the members group.', image: 'wildcats-social-DdP_gsiI51r.jpg' },
     ],
   },
   {

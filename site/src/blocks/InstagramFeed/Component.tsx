@@ -29,7 +29,7 @@ export const InstagramFeedBlock: React.FC<Props> = async ({ title, kicker, count
   if (docs.length === 0) return null
 
   return (
-    <section className="gallery" id="instagram">
+    <section className="gallery" id="social-feed">
       <div className="wrap">
         <div className="section-head">
           <div>
@@ -74,7 +74,7 @@ export const InstagramFeedBlock: React.FC<Props> = async ({ title, kicker, count
                   aspectRatio: '1 / 1',
                   borderRadius: 'var(--radius-md)',
                   overflow: 'hidden',
-                  background: 'var(--ink)',
+                  background: 'var(--cream-2)',
                 }}
               >
                 <Img media={img} sizes="(max-width: 820px) 50vw, 25vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
