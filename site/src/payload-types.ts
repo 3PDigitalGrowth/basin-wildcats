@@ -278,6 +278,8 @@ export interface Page {
     | CtaStripBlock
     | StatementBlock
     | TicketGalleryBlock
+    | FilmReelBlock
+    | QuickLinksBlock
     | DarkBandBlock
     | MarqueeBlock
     | DocumentListBlock
@@ -987,6 +989,75 @@ export interface TicketGalleryBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FilmReelBlock".
+ */
+export interface FilmReelBlock {
+  title: string;
+  titleHollow?: string | null;
+  kicker?: string | null;
+  /**
+   * New reels join the strip on their own after each Instagram refresh.
+   */
+  includeReels?: boolean | null;
+  reelCount?: number | null;
+  /**
+   * Photos for the strip. Reels are mixed in between them, newest first.
+   */
+  frames?:
+    | {
+        image: number | Media;
+        /**
+         * A few words, printed along the film edge. Used as alt text when the photo has none.
+         */
+        caption: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'filmReel';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "QuickLinksBlock".
+ */
+export interface QuickLinksBlock {
+  /**
+   * Optional small label above the links.
+   */
+  title?: string | null;
+  items?:
+    | {
+        icon: 'singlet' | 'people' | 'megaphone' | 'hoodie' | 'whistle' | 'ball' | 'calendar' | 'document';
+        label: string;
+        /**
+         * One short line under the label.
+         */
+        helper?: string | null;
+        showLatestNews?: boolean | null;
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'quickLinks';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "DarkBandBlock".
  */
 export interface DarkBandBlock {
@@ -1389,6 +1460,10 @@ export interface InstagramFeedBlock {
   title?: string | null;
   kicker?: string | null;
   count?: number | null;
+  /**
+   * Tick when a film reel on the same page already plays them.
+   */
+  excludeReels?: boolean | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'instagramFeed';
@@ -1534,6 +1609,10 @@ export interface InstagramPost {
   mediaType?: ('image' | 'video' | 'carousel') | null;
   takenAt?: string | null;
   image?: (number | null) | Media;
+  /**
+   * Reels only. Copied to our own storage so the homepage film reel can play it.
+   */
+  video?: (number | null) | Media;
   likeCount?: number | null;
   commentCount?: number | null;
   hidden?: boolean | null;
@@ -1975,6 +2054,8 @@ export interface PagesSelect<T extends boolean = true> {
         ctaStrip?: T | CtaStripBlockSelect<T>;
         statement?: T | StatementBlockSelect<T>;
         ticketGallery?: T | TicketGalleryBlockSelect<T>;
+        filmReel?: T | FilmReelBlockSelect<T>;
+        quickLinks?: T | QuickLinksBlockSelect<T>;
         darkBand?: T | DarkBandBlockSelect<T>;
         marquee?: T | MarqueeBlockSelect<T>;
         documentList?: T | DocumentListBlockSelect<T>;
@@ -2151,6 +2232,52 @@ export interface TicketGalleryBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FilmReelBlock_select".
+ */
+export interface FilmReelBlockSelect<T extends boolean = true> {
+  title?: T;
+  titleHollow?: T;
+  kicker?: T;
+  includeReels?: T;
+  reelCount?: T;
+  frames?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "QuickLinksBlock_select".
+ */
+export interface QuickLinksBlockSelect<T extends boolean = true> {
+  title?: T;
+  items?:
+    | T
+    | {
+        icon?: T;
+        label?: T;
+        helper?: T;
+        showLatestNews?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "DarkBandBlock_select".
  */
 export interface DarkBandBlockSelect<T extends boolean = true> {
@@ -2285,6 +2412,7 @@ export interface InstagramFeedBlockSelect<T extends boolean = true> {
   title?: T;
   kicker?: T;
   count?: T;
+  excludeReels?: T;
   id?: T;
   blockName?: T;
 }
@@ -2552,6 +2680,7 @@ export interface InstagramPostsSelect<T extends boolean = true> {
   mediaType?: T;
   takenAt?: T;
   image?: T;
+  video?: T;
   likeCount?: T;
   commentCount?: T;
   hidden?: T;

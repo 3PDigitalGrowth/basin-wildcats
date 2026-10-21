@@ -1,6 +1,7 @@
 import type { Metadata } from 'next/types'
 
 import { CollectionArchive } from '@/components/CollectionArchive'
+import { Mascot } from '@/components/Mascot'
 import { PageRange } from '@/components/PageRange'
 import { Pagination } from '@/components/Pagination'
 import configPromise from '@payload-config'
@@ -30,6 +31,7 @@ export default async function Page({ params: paramsPromise }: Args) {
     depth: 1,
     limit: 12,
     page: sanitizedPageNumber,
+    sort: '-publishedAt',
     overrideAccess: false,
   })
 
@@ -39,7 +41,7 @@ export default async function Page({ params: paramsPromise }: Args) {
 
       <div className="hero-shell">
         <section className="hero-card joined">
-          <div className="page-hero no-media">
+          <div className="page-hero news-hero">
             <div>
               <p className="hero-eyebrow reveal">Club news</p>
               <h1 className="page-hero-title reveal reveal-d1">
@@ -48,6 +50,9 @@ export default async function Page({ params: paramsPromise }: Args) {
               <p className="page-hero-sub reveal reveal-d2">
                 Season updates, AGM papers and the odd bit of Wildcats history.
               </p>
+            </div>
+            <div className="news-hero-figure rise rise-d1">
+              <Mascot pose="dash" size={360} eager className="news-hero-mascot" />
             </div>
           </div>
         </section>

@@ -2,6 +2,11 @@
 _render_*/
 *.log
 
+# Raw files emailed by the club (photos of people, large originals). Public
+# repo, so they stay on the build machine; what the site uses lives in
+# site/public or the media library.
+content/client-assets/
+
 # Site secrets (site/.gitignore also covers these)
 site/.env
 site/.env*.local

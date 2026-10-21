@@ -12,12 +12,14 @@ import { DarkBand } from '../../blocks/DarkBand/config'
 import { DocumentList } from '../../blocks/DocumentList/config'
 import { Embed } from '../../blocks/Embed/config'
 import { FacebookPage } from '../../blocks/FacebookPage/config'
+import { FilmReel } from '../../blocks/FilmReel/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { ImageText } from '../../blocks/ImageText/config'
 import { InstagramFeed } from '../../blocks/InstagramFeed/config'
 import { Marquee } from '../../blocks/Marquee/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { ProductGrid } from '../../blocks/ProductGrid/config'
+import { QuickLinks } from '../../blocks/QuickLinks/config'
 import { SponsorGrid } from '../../blocks/SponsorGrid/config'
 import { Statement } from '../../blocks/Statement/config'
 import { Table } from '../../blocks/Table/config'
@@ -45,6 +47,8 @@ export const pageBlocks = [
   CtaStrip,
   Statement,
   TicketGallery,
+  FilmReel,
+  QuickLinks,
   DarkBand,
   Marquee,
   DocumentList,

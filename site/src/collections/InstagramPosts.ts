@@ -39,6 +39,12 @@ export const InstagramPosts: CollectionConfig = {
     },
     { name: 'takenAt', type: 'date', index: true },
     { name: 'image', type: 'upload', relationTo: 'media' },
+    {
+      name: 'video',
+      type: 'upload',
+      relationTo: 'media',
+      admin: { description: 'Reels only. Copied to our own storage so the homepage film reel can play it.' },
+    },
     { name: 'likeCount', type: 'number' },
     { name: 'commentCount', type: 'number' },
     {

@@ -4,7 +4,9 @@ import type { Payload } from 'payload'
  * Pulls the club's latest Instagram posts through ScrapeCreators (no Meta
  * Graph API, no client login) and mirrors them into the `instagram-posts`
  * collection, copying each cover image to Vercel Blob via the `media`
- * collection because Instagram's own CDN URLs expire.
+ * collection because Instagram's own CDN URLs expire. Reels also get their
+ * MP4 copied (a few per run, to stay inside the cron's time limit) so the
+ * homepage film reel can play them.
  *
  * Docs: https://docs.scrapecreators.com (Instagram profile endpoint).
  * Verified live 18 Sep 2026 against @thebasin.wildcats. The response shape
@@ -32,6 +34,7 @@ interface ScrapeCreatorsNode {
   shortcode?: string | null
   display_url?: string | null
   thumbnail_src?: string | null
+  video_url?: string | null
   taken_at_timestamp?: number
   edge_media_to_caption?: { edges?: { node?: ScrapeCreatorsCaptionNode }[] }
   edge_liked_by?: { count?: number }
@@ -56,7 +59,12 @@ export interface SyncInstagramOptions {
   payload: Payload
   handle: string
   limit?: number
+  /** Reel videos to copy per run. Each is a few MB, so the cron keeps this low. */
+  maxVideos?: number
 }
+
+// Reels run 15 to 60 seconds; anything past this is not a weekly reel.
+const MAX_VIDEO_BYTES = 40 * 1024 * 1024
 
 export interface SyncInstagramResult {
   fetched: number
@@ -72,11 +80,39 @@ const mediaTypeFromTypename = (typename?: string | null): InstagramMediaType => 
   return 'image'
 }
 
+async function copyVideo(
+  payload: Payload,
+  shortcode: string,
+  url: string,
+  alt: string,
+): Promise<number> {
+  const res = await fetch(url, { headers: { 'User-Agent': BROWSER_USER_AGENT } })
+  if (!res.ok) throw new Error(`video download failed (${res.status})`)
+  const declared = Number(res.headers.get('content-length') || 0)
+  if (declared > MAX_VIDEO_BYTES) throw new Error(`video too large (${declared} bytes)`)
+  const buffer = Buffer.from(await res.arrayBuffer())
+  if (buffer.byteLength > MAX_VIDEO_BYTES) throw new Error(`video too large (${buffer.byteLength} bytes)`)
+
+  const doc = await payload.create({
+    collection: 'media',
+    data: { alt },
+    file: {
+      data: buffer,
+      name: `wildcats-social-${shortcode}.mp4`,
+      mimetype: 'video/mp4',
+      size: buffer.byteLength,
+    },
+  })
+  return doc.id
+}
+
 export async function syncInstagram({
   payload,
   handle,
   limit = 12,
+  maxVideos = 2,
 }: SyncInstagramOptions): Promise<SyncInstagramResult> {
+  let videosCopied = 0
   const result: SyncInstagramResult = {
     fetched: 0,
     created: 0,
@@ -133,49 +169,75 @@ export async function syncInstagram({
       const existingDoc = existing.docs[0]
       const existingImage =
         existingDoc?.image && typeof existingDoc.image === 'object' ? existingDoc.image : null
+      const existingVideo =
+        existingDoc?.video && typeof existingDoc.video === 'object' ? existingDoc.video : null
+      const mediaType = mediaTypeFromTypename(node.__typename)
 
-      // Skip if we already have this post cached with its image under the
-      // current naming. Files saved under the old "ig-" prefix are replaced:
-      // that prefix trips some ad blockers, so the tiles rendered as blanks.
-      if (existingDoc && existingImage && !existingImage.filename?.startsWith('ig-')) {
+      // Files saved under the old "ig-" prefix are replaced: that prefix
+      // trips some ad blockers, so the tiles rendered as blanks.
+      const needsImage = !existingImage || Boolean(existingImage.filename?.startsWith('ig-'))
+      const videoSourceUrl = mediaType === 'video' ? node.video_url : null
+      const needsVideo = Boolean(videoSourceUrl) && !existingVideo && videosCopied < maxVideos
+
+      if (existingDoc && !needsImage && !needsVideo) {
         result.skipped += 1
         continue
       }
-      const staleMediaId = existingImage?.id
-
-      const imageSourceUrl = node.display_url || node.thumbnail_src
-      if (!imageSourceUrl) {
-        result.errors.push(`${shortcode}: no display_url or thumbnail_src on the node`)
-        result.skipped += 1
-        continue
-      }
-
-      const imageRes = await fetch(imageSourceUrl, {
-        headers: { 'User-Agent': BROWSER_USER_AGENT },
-      })
-      if (!imageRes.ok) {
-        result.errors.push(`${shortcode}: image download failed (${imageRes.status})`)
-        result.skipped += 1
-        continue
-      }
-      const buffer = Buffer.from(await imageRes.arrayBuffer())
-      const mimetype = imageRes.headers.get('content-type') || 'image/jpeg'
+      const staleMediaId = needsImage ? existingImage?.id : undefined
 
       const captionText = (node.edge_media_to_caption?.edges?.[0]?.node?.text || '').trim()
       const alt = captionText ? captionText.slice(0, 120) : 'Instagram post by The Basin Wildcats'
 
-      const mediaDoc = await payload.create({
-        collection: 'media',
-        data: { alt },
-        file: {
-          data: buffer,
-          name: `wildcats-social-${shortcode}.jpg`,
-          mimetype,
-          size: buffer.byteLength,
-        },
-      })
+      let imageId = existingImage?.id
+      if (needsImage) {
+        const imageSourceUrl = node.display_url || node.thumbnail_src
+        if (!imageSourceUrl) {
+          result.errors.push(`${shortcode}: no display_url or thumbnail_src on the node`)
+          result.skipped += 1
+          continue
+        }
 
-      const mediaType = mediaTypeFromTypename(node.__typename)
+        const imageRes = await fetch(imageSourceUrl, {
+          headers: { 'User-Agent': BROWSER_USER_AGENT },
+        })
+        if (!imageRes.ok) {
+          result.errors.push(`${shortcode}: image download failed (${imageRes.status})`)
+          result.skipped += 1
+          continue
+        }
+        const buffer = Buffer.from(await imageRes.arrayBuffer())
+        const mimetype = imageRes.headers.get('content-type') || 'image/jpeg'
+
+        const mediaDoc = await payload.create({
+          collection: 'media',
+          data: { alt },
+          file: {
+            data: buffer,
+            name: `wildcats-social-${shortcode}.jpg`,
+            mimetype,
+            size: buffer.byteLength,
+          },
+        })
+        imageId = mediaDoc.id
+      }
+
+      // A failed video copy is not fatal: the post still shows as a cover
+      // image, and the next run tries the video again.
+      let videoId: number | undefined
+      if (needsVideo && videoSourceUrl) {
+        videosCopied += 1
+        try {
+          videoId = await copyVideo(payload, shortcode, videoSourceUrl, alt)
+        } catch (err) {
+          result.errors.push(`${shortcode}: ${(err as Error).message}`)
+        }
+      }
+
+      if (existingDoc && !needsImage && !videoId) {
+        result.skipped += 1
+        continue
+      }
+
       const takenAt = node.taken_at_timestamp
         ? new Date(node.taken_at_timestamp * 1000).toISOString()
         : undefined
@@ -188,7 +250,8 @@ export async function syncInstagram({
         caption: captionText,
         mediaType,
         takenAt,
-        image: mediaDoc.id,
+        image: imageId,
+        ...(videoId ? { video: videoId } : {}),
         likeCount,
         commentCount,
         raw: node as Record<string, unknown>,

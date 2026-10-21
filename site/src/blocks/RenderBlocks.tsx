@@ -12,12 +12,14 @@ import { DarkBandBlock } from '@/blocks/DarkBand/Component'
 import { DocumentListBlock } from '@/blocks/DocumentList/Component'
 import { EmbedBlock } from '@/blocks/Embed/Component'
 import { FacebookPageBlock } from '@/blocks/FacebookPage/Component'
+import { FilmReelBlock } from '@/blocks/FilmReel/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { ImageTextBlock } from '@/blocks/ImageText/Component'
 import { InstagramFeedBlock } from '@/blocks/InstagramFeed/Component'
 import { MarqueeBlock } from '@/blocks/Marquee/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { ProductGridBlock } from '@/blocks/ProductGrid/Component'
+import { QuickLinksBlock } from '@/blocks/QuickLinks/Component'
 import { SponsorGridBlock } from '@/blocks/SponsorGrid/Component'
 import { StatementBlock } from '@/blocks/Statement/Component'
 import { TableBlock } from '@/blocks/Table/Component'
@@ -35,12 +37,14 @@ const blockComponents: Record<string, React.FC<any>> = {
   documentList: DocumentListBlock,
   embed: EmbedBlock,
   facebookPage: FacebookPageBlock,
+  filmReel: FilmReelBlock,
   formBlock: FormBlock,
   imageText: ImageTextBlock,
   instagramFeed: InstagramFeedBlock,
   marquee: MarqueeBlock,
   mediaBlock: MediaBlock,
   productGrid: ProductGridBlock,
+  quickLinks: QuickLinksBlock,
   sponsorGrid: SponsorGridBlock,
   statement: StatementBlock,
   table: TableBlock,
@@ -56,6 +60,8 @@ const selfSpaced = new Set([
   'sponsorGrid',
   'statement',
   'ticketGallery',
+  'filmReel',
+  'quickLinks',
   'instagramFeed',
   'productGrid',
 ])

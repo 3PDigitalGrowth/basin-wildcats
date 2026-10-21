@@ -12,7 +12,7 @@ import { getCachedGlobal } from '@/utilities/getGlobals'
  * Blob copies (refreshed by /api/cron/instagram). Styled to the site, links
  * out to the original post.
  */
-export const InstagramFeedBlock: React.FC<Props> = async ({ title, kicker, count }) => {
+export const InstagramFeedBlock: React.FC<Props> = async ({ title, kicker, count, excludeReels }) => {
   const payload = await getPayload({ config: configPromise })
   const [posts, settings] = await Promise.all([
     payload.find({
@@ -20,7 +20,10 @@ export const InstagramFeedBlock: React.FC<Props> = async ({ title, kicker, count
       depth: 1,
       limit: count || 8,
       sort: '-takenAt',
-      where: { hidden: { not_equals: true } },
+      where: {
+        hidden: { not_equals: true },
+        ...(excludeReels ? { mediaType: { not_equals: 'video' } } : {}),
+      },
     }),
     getCachedGlobal('site-settings', 0)() as Promise<SiteSetting>,
   ])

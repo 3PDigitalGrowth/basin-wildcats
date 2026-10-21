@@ -311,3 +311,23 @@ transfers. Listed in section 8 and in `docs/handover.md`. One internal item:
 lift the mobile Lighthouse lab score past 90 (the remaining lever is the
 JavaScript that runs before the hero paints; the hero image itself already
 ships at 41KB and loads in the first round trips).
+
+## 11. Committee feedback round, 12 Oct 2026
+
+Mel sent the committee's notes on 12 Oct; built 22 Oct. Attachments saved in
+`content/client-assets/2026-10-12/` (gitignored: raw club files stay off the public repo).
+
+| Their ask | What shipped |
+|-----------|--------------|
+| Film reel of club photos, boys, girls, young and old, and the Wildcat | "Game day moments" is now a 35mm film strip (Film reel block): eight club photos including the two mascot costume photos Mel sent, with the latest Wildcats Rewind reels spliced in. Runs slowly, pauses on hover, swipes on phones |
+| Connect it to Instagram for the weekly reels | The Instagram sync now copies each reel's video to Blob. New Rewind reels join the strip on their own and play in a lightbox |
+| Committee details on a front page icon | Quick links row under the marquee: Join us, Committee, Club news, Shop, Volunteer |
+| News updates as a front page icon | The Club news stub prints the newest headline and date |
+| Update committee details | Committee page and site contacts now carry Mel's list (President Steve Geddes, Treasurer Rachel, Socials Mel Jones, VP and Secretary by role). Old names, phone numbers and the old coordinator table removed. AGM 2026 nominations listed |
+| News newest first, AI Wildcat on the news page | News sorts newest first everywhere (site and admin). The club's original Wildcat artwork stands in the News hero |
+| Update all sponsors | Barry Plant Boronia, Cafe Brontos and Richardson Arch Group (the three tagged on every Rewind reel). Earlier sponsors hidden, not deleted. Logos still to come from the club |
+| Where merch and volunteering link | Shop and Volunteer stubs in the quick links row |
+
+Also: AGM 2026 news post from the club's own 12 Oct Instagram announcement;
+all four website forms now notify secretary.thebasinwildcats@gmail.com
+(still logged, not sent, until the Resend key is set).

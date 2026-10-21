@@ -27,7 +27,7 @@ export const ContactCardsBlock: React.FC<Props> = async ({ title, intro, source,
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 260px), 1fr))',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))',
           gap: 18,
         }}
       >
@@ -42,8 +42,10 @@ export const ContactCardsBlock: React.FC<Props> = async ({ title, intro, source,
             </span>
             {c.name && <h3 style={{ fontSize: 24 }}>{c.name}</h3>}
             {c.email && (
-              <a href={`mailto:${c.email}`} style={{ color: 'var(--red-dark)', wordBreak: 'break-all', fontSize: 15 }}>
-                {c.email}
+              <a href={`mailto:${c.email}`} style={{ color: 'var(--red-dark)', overflowWrap: 'anywhere', fontSize: 15 }}>
+                {/* wrap long club addresses at the @, not mid-word */}
+                {c.email.split('@')[0]}
+                <wbr />@{c.email.split('@').slice(1).join('@')}
               </a>
             )}
             {c.phone && (

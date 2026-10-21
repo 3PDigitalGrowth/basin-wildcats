@@ -15,7 +15,8 @@ const run = async () => {
 
   payload.logger.info(`Syncing Instagram for @${handle}...`)
 
-  const summary = await syncInstagram({ payload, handle, limit: 12 })
+  // No cron time limit here, so copy every reel video that is missing.
+  const summary = await syncInstagram({ payload, handle, limit: 12, maxVideos: 12 })
 
   payload.logger.info(summary, 'Instagram sync finished')
 

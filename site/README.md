@@ -34,7 +34,8 @@ carries the app secrets. Both are ignored by git.
 | `pnpm seed:core` | Site settings, navigation, footer, sponsors, forms, homepage and landing pages (idempotent) |
 | `pnpm migrate:wp` | Import pages, posts, documents, images and redirects from `../content/wp-export` (idempotent) |
 | `pnpm seed:shop` | Size variants and the Grey Hoodie product (idempotent) |
-| `pnpm sync:instagram` | Pull the latest Instagram posts once (the cron does this every six hours in production) |
+| `pnpm sync:instagram` | Pull the latest Instagram posts once, copying every missing reel video (the cron does this every six hours in production, two reel videos per run) |
+| `pnpm payload run src/scripts/committee-feedback-oct-2026.ts` | Applies the committee's 12 Oct 2026 feedback: homepage quick links and film reel, committee contacts, sponsors, AGM 2026 post (idempotent) |
 
 Schema changes always go through migrations; `push` is off so development and
 production databases stay identical.

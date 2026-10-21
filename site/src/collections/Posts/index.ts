@@ -30,6 +30,8 @@ import { slugField } from 'payload'
 export const Posts: CollectionConfig<'posts'> = {
   slug: 'posts',
   labels: { singular: 'News post', plural: 'News' },
+  // Newest first, on the site and in the admin list.
+  defaultSort: '-publishedAt',
   access: {
     create: editorOrAdmin,
     delete: editorOrAdmin,
