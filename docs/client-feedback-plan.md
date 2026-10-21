@@ -331,3 +331,13 @@ Mel sent the committee's notes on 12 Oct; built 22 Oct. Attachments saved in
 Also: AGM 2026 news post from the club's own 12 Oct Instagram announcement;
 all four website forms now notify secretary.thebasinwildcats@gmail.com
 (still logged, not sent, until the Resend key is set).
+
+Fees and Facebook, 22 Oct: the Fees page carries Summer 2026/27 from Mel's
+PlayHQ screenshot ($240 for Under 8 to Under 16, $175 for Under 19 to Under
+23, 10% and 30% family discounts, 1.9% PlayHQ fee, season 3 Oct 2026 to 25 Apr
+2027). Facebook page (facebook.com/basinwildcatsclub) and members group are in
+Site settings, so the footer icon and the Social page embed work; the Social
+page lists all three groups and the Team managers and Coaches pages link their
+own. The embed shows the page header and Follow button only, because Facebook
+shows the post timeline to logged-in visitors alone. Script:
+`site/src/scripts/fees-and-facebook-oct-2026.ts`.

@@ -10,7 +10,10 @@ export const FacebookPageBlock: React.FC<Props> = async ({ title, pageUrl, heigh
   const url = pageUrl || settings?.facebookUrl
   if (!url) return null
   const h = height || 600
-  const src = `https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(url)}&tabs=timeline&width=500&height=${h}&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false`
+  // A short box is header-only: asking for the timeline there just leaves a
+  // cut-off strip of empty feed.
+  const tabs = h >= 300 ? 'timeline' : ''
+  const src = `https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(url)}&tabs=${tabs}&width=500&height=${h}&small_header=${tabs ? 'true' : 'false'}&adapt_container_width=true&hide_cover=false&show_facepile=false`
 
   return (
     <section className="wrap">

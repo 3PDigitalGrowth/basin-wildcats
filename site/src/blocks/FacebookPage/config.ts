@@ -11,6 +11,14 @@ export const FacebookPage: Block = {
       type: 'text',
       admin: { description: 'Leave blank to use the Facebook page URL from Site settings.' },
     },
-    { name: 'height', type: 'number', defaultValue: 600 },
+    {
+      name: 'height',
+      type: 'number',
+      defaultValue: 600,
+      admin: {
+        description:
+          'Under 300 shows just the page header and Follow button. Facebook only shows the post timeline to visitors logged in to Facebook, so a tall box sits empty for everyone else.',
+      },
+    },
   ],
 }

@@ -1478,6 +1478,9 @@ export interface FacebookPageBlock {
    * Leave blank to use the Facebook page URL from Site settings.
    */
   pageUrl?: string | null;
+  /**
+   * Under 300 shows just the page header and Follow button. Facebook only shows the post timeline to visitors logged in to Facebook, so a tall box sits empty for everyone else.
+   */
   height?: number | null;
   id?: string | null;
   blockName?: string | null;
